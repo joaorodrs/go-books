@@ -39,8 +39,21 @@ func GetBookById(Id int64) (*Book, *gorm.DB) {
 }
 
 func UpdateBook(Id int64, book Book) Book {
-	db.Where("ID=?", Id).Update(book)
-	return book
+	var bookDetails Book
+	db.Where("ID=?", Id).Find(&bookDetails)
+
+	if book.Name != "" {
+		bookDetails.Name = book.Name
+	}
+	if book.Author != "" {
+		bookDetails.Author = book.Author
+	}
+	if book.Publication != "" {
+		bookDetails.Publication = book.Publication
+	}
+
+	db.Save(&bookDetails)
+	return bookDetails
 }
 
 func DeleteBook(Id int64) Book {

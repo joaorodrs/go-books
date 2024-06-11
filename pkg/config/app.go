@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 var (
@@ -10,7 +10,7 @@ var (
 )
 
 func Connect() {
-	d, err := gorm.Open("mysql", "joaorodrs:password@tcp(127.0.0.1:3306)/booksdb?charset=utf8mb4&parseTime=True&loc=Local")
+	d, err := gorm.Open("postgres", "host=localhost user=postgres password=password dbname=books port=5432 sslmode=disable TimeZone=America/Sao_Paulo")
 	if err != nil {
 		panic(err)
 	}
